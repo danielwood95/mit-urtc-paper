@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  26 JUL 2017 22:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  26 JUL 2017 23:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -898,43 +898,63 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
 (Font)              scaled to size 10.95pt on input line 39.
 
-(./mit-urtc-body.tex) (./mit-urtc.bbl
+(./mit-urtc-body.tex
+Underfull \vbox (badness 4193) has occurred while \output is active []
+
+LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 9.0pt on input line 12.
+
+Overfull \hbox (2.03838pt too wide) in paragraph at lines 13--14
+[]\T1/LinuxLibertineT-TLF/m/n/9 (-20) Privacy Anal-y-sis: Check for un-en-crypt
+ed pay-loads in packet
+ []
+
+
+Overfull \hbox (87.72076pt too wide) in paragraph at lines 18--19
+\T1/LinuxLibertineT-TLF/m/n/9 (-20) tion code can all be found on Github at: ht
+tps://github.com/RohanDoshi2018/IoTSecurityHub. 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [1.1{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+
+] [2.2])
+(./mit-urtc.bbl
 
 Package natbib Warning: Empty `thebibliography' environment on input line 40.
 
-) [1.1{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
-
-
-]
+) [3.3]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 46.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 46.
-
-(./mit-urtc.aux)
+ (./mit-urtc.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 46.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 46.
 Package rerunfilecheck Info: File `mit-urtc.out' has not changed.
-(rerunfilecheck)             Checksum: 17DAB288B715D69214514D06C6078A6D;405.
+(rerunfilecheck)             Checksum: 18A34EBAD8B6DF1542F1123887916D6D;1470.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 46.
  ) 
 Here is how much of TeX's memory you used:
- 16510 strings out of 493089
- 247486 string characters out of 6134842
- 352123 words of memory out of 5000000
- 19524 multiletter control sequences out of 15000+600000
- 66139 words of font info for 78 fonts, out of 8000000 for 9000
+ 16657 strings out of 493089
+ 250686 string characters out of 6134842
+ 362124 words of memory out of 5000000
+ 19553 multiletter control sequences out of 15000+600000
+ 80122 words of font info for 158 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 60i,11n,94p,272b,466s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,11n,94p,1240b,466s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq.enc
 }{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}<
 /usr/local/texlive/2015/texmf-dist/fonts/type1/public/libertine/LinBiolinumTB.p
 fb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/libertine/LinLibertin
 eT.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/libertine/LinLibe
-rtineTB.pfb>
-Output written on mit-urtc.pdf (1 page, 214709 bytes).
+rtineTB.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/txfonts/txsy
+.pfb>
+Output written on mit-urtc.pdf (3 pages, 245046 bytes).
 PDF statistics:
- 52 PDF objects out of 1000 (max. 8388607)
- 38 compressed objects within 1 object stream
- 6 named destinations out of 1000 (max. 500000)
- 18481 words of extra memory for PDF output out of 20736 (max. 10000000)
+ 100 PDF objects out of 1000 (max. 8388607)
+ 82 compressed objects within 1 object stream
+ 16 named destinations out of 1000 (max. 500000)
+ 20593 words of extra memory for PDF output out of 20736 (max. 10000000)
 

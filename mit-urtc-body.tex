@@ -1,31 +1,57 @@
 \section{Motivation}
-When consumers purchase IoT devices for their home, whether an Amazon Echo, wireless smart scale, or Nest thermostat, they currently have no visibility into the traffic that their devices are sending across the Internet or how vulnerable their devices are to attack. IoT devices have access to some of our most personal and private information, including financial data, location, health, and behavior––data that users want to prevent from being shared with adversaries and network observers. The only visibility consumers have into the privacy of their information is what they see on the apps associated with their devices on their phones; they don't have the time or capability to closely scrutinize their outgoing data via Wireshark. Thus we present IoT Network Monitor: an intuitive and user-friendly router to which consumers can connect their devices and visualize the vulnerabilities of IoT devices in their home. 
+When consumers purchase IoT devices for their home, whether an Amazon Echo, wireless smart scale, or Nest thermostat, they currently have no visibility into the traffic that their devices are sending across the Internet or how vulnerable their devices are to attack. IoT devices have access to some of our most personal and private information, including financial data, location, health, and behavior--data that users want to prevent from being shared with adversaries and network observers. The only visibility consumers have into the privacy of their information is what they see on the apps associated with their devices on their phones; they don't have the time or capability to closely scrutinize their outgoing data via Wireshark. Thus we present IoT Network Monitor: an intuitive and user-friendly router to which consumers can connect their devices and visualize the vulnerabilities of IoT devices in their home. 
 
 \section{Related Work}
-Academic literature directly related to the default password problem of IoT devices is close tonon-existant. Although a few papers briefly acknowledge that the default password problem is asecurity threat, no previous work directly addresses the issue or proposes a potential solution. 
-\par
-Literature regarding the Internet of Things and the default password problem was most prevalentin newspaper articles and blogs. Most sources of that kind discuss the security issue of this problemand mention the threat posed by the Mirai botnet---yet, they do not propose a solution. An exampleof this is seen in an article written by Brian Krebs on his security blog, Krebs on Security, where heacknowledges that the default password problem is a big security threat,\footnote{Brian Krebs, ``Who Makes the IoT Things Under Attack?'' Krebs on Security, October 16, 2016,https://krebsonsecurity.com/2016/10/who-makes-the-iot-things-under-attack} but does not propose asolution. He argues that it is not sufficient to only change the password on the online user interface,but rather it is imperative to also change the passwords of the open ports (such as the SSH andTelnet ports). Simply changing the password on the user interface does not change them on theports, so while the default logon credentials will no longer log on to the user interface, the actualpassword of the device remains the same. Most users of IoT devices lack the knowledge to respondto Krebs' warnings, therefore, hackers would still be able to gain access over the device or make it apart of a botnet by logging on to the open ports.
-\par
-Since devices with vulnerable passwords are still being produced and no systematic approachexists that can prevent the possible consequences of such devices, there remains a serious securityflaw in IoT devices that can have disastrous consequences. The gap in this literature can greatlybenefit from more studies that address this pressing problem of default passwords of IoT devicesand by proposing a solution.
+While the academic literature does not include publications proposing a security and privacy monitoring system for home IoT devices, we summarize the research relevant to the three features we propose in IoT Network monitor: 1) default password detection, 2) privacy analysis, and 3) anomaly detection. 
+
+Academic literature directly related to the default password problem of IoT devices is close to
+non-existant. Although a few papers briefly acknowledge that the default password problem is a
+security threat, no previous work directly addresses the issue or proposes a potential solution. 
+
+Literature regarding the Internet of Things and the default password problem was most prevalent in newspaper articles and blogs. Most sources of that kind discuss the security issue of this problem and mention the threat posed by the Mirai botnet---yet, they do not propose a solution. An example of this is seen in an article written by Brian Krebs on his security blog, Krebs on Security, where he acknowledges that the default password problem is a big security threat~\cite{krebs}, but does not propose a solution. He argues that it is not sufficient to only change the password on the online user interface, but rather it is imperative to also change the passwords of the open ports (such as the SSH and Telnet ports). Simply changing the password on the user interface does not change them on the ports, so while the default logon credentials will no longer log on to the user interface, the actual password of the device remains the same. Most users of IoT devices lack the knowledge to respond to Krebs' warnings, therefore, hackers would still be able to gain access over the device or make it a part of a botnet by logging on to the open ports.
+
+Since devices with vulnerable passwords are still being produced and no systematic approach exists that can prevent the possible consequences of such devices, there remains a serious security flaw in IoT devices that can have disastrous consequences. The gap in this literature can greatly benefit from more studies that address this pressing problem of default passwords of IoT devices and by proposing a solution.
+
+Related research into the privacy implications of IoT systems has revealed significant privacy vulnerabilities that adversaries with passive network capabilities could exploit. For example, in ``Protecting your Daily In-Home Activity Information from a Wireless Snooping Attack'' ~\cite{srinivasan2008fats}, Srinivasan et al. present a new privacy leak in residential wireless ubiquitous computing systems: the Fingerprint and Timing-based Snooping (FATS) attack. This attack allows a WiFi eavesdropper to observe private activities in the home such as cooking, showering, toileting, and sleeping by snooping on the wireless transmissions of sensors in a home and leveraging tiered inference algorithms.
+
+In ``Is Anybody Home? Inferring Activity From Start Home Network Traffic'' ~\cite{coposIoT}, Copos, et al. present a scheme to infer when a home is occupied based on parsing packet capture files and log characteristics of the network traffic from a smart thermostat. 
+
+More recently, Apthorpe et al. ~\cite{apthorpeIoT} observed that passive network observers, such as Internet service providers, could analyze IoT network traffic and infer user/device interactions even when device communications are enrypted. 
+
+This attack is especially concerning for personal medical devices. The repetitive nature of medical tests, such as daily blood sugar or blood pressure readings, generates clearly defined patterns of device activity and could reveal common medical conditions from network metadata alone. 
 
 \section{Proposed Architecture}
-As consumers continue to adopt IoT devices, consumers will continue to place insecure IoT devices within networks in positions of trust (e.g. smart home networks). Behind the firewall, these IoT devices will have access to other network devices and can pose a variety of security threats. For example, if the device has open ports or insecure passwords, these IoT devices can be hijacked, reveal sensitive information, conduct denial of service attacks on the local network, join an IoT botnet, etc. Yet, consumers don't have a simple, intuitive interface to understand and monitor these threats. Even if they are aware of a security attack, consumers often are not sure what action to take in response. We propose the IoT Security Hub to help combat these issues.
+As consumers continue to adopt IoT devices, consumers will continue to place insecure IoT devices within networks in positions of trust (e.g. smart home networks). Behind the firewall, these IoT devices will have access to other network devices and can pose a variety of security threats. For example, if the device has open ports or insecure passwords, these IoT devices can be hijacked, reveal sensitive information, conduct denial of service attacks on the local network, join an IoT botnet, etc. Yet, consumers don't have a simple, intuitive interface to understand and monitor these threats. Even if they are aware of a security attack, consumers often are not sure what action to take in response. We propose the IoT Network Monitor to help combat these issues.
 
-Our framework for the IoT Security Hub includes a user-friendly web interface that integrates with a network middlebox that can sniff traffic on the LAN. The IoT Security Hub collects packet captures as PCAP files throughout the day (say, for the first ten minutes of each hour). The Hub software then runs a variety of scripts to parse and analyze the latest PCAP files. It looks for vulnerabilities in the following three dimensions:
+Our framework for the IoT Network Monitor includes a user-friendly web interface�that integrates with a network middlebox that can sniff traffic on the LAN. The IoT Network Monitor collects packet captures as PCAP files throughout the day (say, for the first ten minutes of each hour). The Hub software then runs a variety of scripts to parse and analyze the latest PCAP files. It looks for vulnerabilities in the following three dimensions:
 
 \begin{itemize}
-	\item Password Vulnerability: Scan IoT devices on the network, looking for open ports 22 and 23, and offering a new password if the password is easy to crank. 
+	\item Password Vulnerability: Scan IoT devices on the network, looking for open ports 22 and 23, and offering a new password if the password can be cracked using brute force. 
 	\item Privacy Analysis: Check for unencrypted payloads in packet captures containing personal identifiers and other forms of sensitive data (e.g. medical data).
 	\item Anomaly Detection: Detect IoT Botnet DoS traffic originating from an IoT device on the LAN using the FITBOT framework.
 \end{itemize}
 
 \section{Implementation}
-We implemented the web app as a Flask app to help integrate the front-end interface with the python scripts analyzing the network. This software, as is, is written to be deployed on a Raspberry Pi 3 and relies on the dumpcap utility for packet capture. The implementation code can all be found on Github at: https://github.com/RohanDoshi2018/IoTSecurityHub.	
+We implemented the web app as a Flask app to help integrate the front-end interface with the python scripts analyzing the network. This software, as is, is written to be deployed on a Raspberry Pi 3 and relies on the dumpcap utility for packet capture.
 		
 One thing to note are the challenges associated with designing the user experience with the web platform. Apart from notifying users of security threats with clear colors and relevant text (e.g. sample of leaked sensitive information or a proactive suggestions for a new password), we always provided a call to action to help users understand what to do next in response to a threat.
 
+\begin{figure}
+  \centering
+    \fbox{\includegraphics[scale=0.4]{ui}}
+     \caption{User interface of the IoT Network Monitor}
+     \label{fig:bp-image}
+\end{figure}
+
+\begin{figure}
+  \centering
+    \fbox{\includegraphics[scale=0.4]{alert}}
+     \caption{IoT Network Monitor alerts the user when it has discovered a vulnerability}
+     \label{fig:bp-image}
+\end{figure}
+
 \section{Password Inspection}
-The first feature of the IoT Network Monitor scans the home network for devices that have been shipped with a default username and password combination on an open port, either port 22 or port 23 (the SSH port or the Telnet port, respectively). This vulnerability of IoT devices – when multiple devices are shipped with the same default logon credentials – enabled the construction of the Mirai botnet. When such devices are detected on a home network, our tool changes the password of the open port to a randomly generated 12 character string and notifies the user of the new password on the user-interface.
+The first feature of the IoT Network Monitor scans the home network for devices that have been shipped with a default username and password combination on an open port, either port 22 or port 23 (the SSH port or the Telnet port, respectively). This vulnerability of IoT devices is created when multiple devices are shipped with the same default logon credentials, enabling the construction of the mass password attacks such as the Mirai botnet. When devices with default passwords are detected on a home network, our tool changes the password of the open port to a randomly generated 12 character string and notifies the user of the new password on the user-interface.
 
 The following steps were taken in order to achieve this goal:
 \begin{itemize}
@@ -45,13 +71,21 @@ The feature is implemented using a five step approach:
 \begin{itemize}
 	\item Separate packet streams: IoT Network Monitor separates connected devices on the network into separate packet streams for analysis. This can be done by classifying packet conversations by the external IP address of the communicating with the device, since the gateway router typically makes it difficult to divide outgoing traffic into sets based on IP addresses of the origin device. 
 
-	\item Separate by protocol: Once a device’s packet stream has been identified, IoT Network Monitor begins the process of deep packet inspection by separating the stream by network protocol. It separates HTTP and TCP packets for further analysis. 
+	\item Separate by protocol: Once a device's packet stream has been identified, IoT Network Monitor begins the process of deep packet inspection by separating the stream by network protocol. It separates HTTP and TCP packets for further analysis. 
 
 	\item Remove headers: Next, packet payloads are separated from the packet headers so that IoT Monitor can examine the application data and screen in for plaintext leaks. 
 
 	\item Find unencrypted packets: Packets are then classified as either plaintext or encrypted using payload entropy as an indicator of encryption. By training IoT Network Monitor on a test set of payloads, we observed a threshold entropy value below which we were able to consistently identify plaintext packets. Entropy analysis is conducted using the Shannon Entropy Test, which calculates the quantitative measure of the variability in the frequency of the different possible characters in a payload. While encrypted strings have very high entropy, unencrypted plaintext English strings exhibit very low entropy, and are thus fairly easy to identify. 
 
-	\item Search for sensitive information: Lastly, plaintext packets which have been identified are further analyzed for potentially sensitive information. This is implemented by a straightforward dictionary search; plaintext packets are searched for the presence of common first names, medical terms, and personally identifying information. If the monitor discovers instances of these terms in the unencrypted packets coming from an IoT device, it alerts the user on the Connected Devices Dashboard.
+	The Shannon Entropy Test calculates the entropy of each payload string, which is a quantitative measure of the variability in the frequency of the different possible characters. While random (or in this case, encrypted) strings have very high entropy, unencrypted plaintext and English strings exhibit fairly low entropy. This is because most characters are drawn from the limited set of printable characters and in English, many letters are much more likely to appear than others. For example, the letter e appears roughly 12.5\% of the time, while the letter $j$ appears less than 0.2\% of the time. To calculate the Shannon Entropy of a string, let $X$ be a random variable that takes on possible values $x_1$, $x_2$, ..., $x_n$. $p(x_i)$ is the probability that $X = x_i$:
+$$H(X) = - \sum_{i = 1}^{n} p(x_i) log p(x_i)$$
+A packet's payload is presumed to be unencrypted if its Shannon entropy value is lower than a threshold parameter. For our analysis, we used a relatively high threshold parameter of $7.5$, so as not to discard some unencrypted payloads with high entropy (at the cost of misidentifying a small number of encrypted payloads with low entropy).
+
+
+	\item Search for sensitive information: Plaintext packets which have been identified are further analyzed for potentially sensitive information. This is implemented by a straightforward dictionary search; plaintext packets are searched for the presence of common first names, medical terms, and personally identifying information. If the monitor discovers instances of these terms in the unencrypted packets coming from an IoT device, it alerts the user on the Connected Devices Dashboard.
+
+	\item Analyze Metadata: In cases when devices encrypted application-level data or utilized secure protocols such as TLS or SSL, we were still able to infer rough user behavior during traffic collection due to the fact that the devices studied are only used to make periodic measurements and are not always on. For example, blood sugar may be measured at regular intervals throughout the day (such as after a meal) and smart scales might be used once every morning. Using Wireshark, we were able to associate periods of device activity based on time stamps and origin IP addresses, thereby keeping track of each device reading. In some cases, we were able to determine what the behavior of the user during that period of activity by examining the descriptions of the destination IP addresses in Wireshark.
+
 \end{itemize}
 
 \section{Anomaly Detection} 
@@ -66,16 +100,52 @@ The FITBOT framework proposes four key steps:
 
 	\item Split Packet By Device and Time-bin: In order to generate temporal features on a per-device basis, the packets must be split by their source IP address. This way, we can quantify and represent whether specific devices are behaving anomalously in a given time period. Using the timestamps of the packet capture, we split packets into continuous non-overlapping time-bins. The length of the time-bin may be modified to capture different types of temporal features. 
 
-	\item Generate Feature Vectors for Each Packet: We generate packet-level features and temporal features for each packet and concatenate all these features into a feature vector. Packet-level features are normally derived almost directly from the flow-based attributes; this includes packet length, interpacket timing velocity and acceleration, and protocol. And, temporal features are unique to a specific device and time-bin; these tend to be more IoT-device specific, such as the 
+	\item Generate Feature Vectors for Each Packet: We generate packet-level features and temporal features for each packet and concatenate all these features into a feature vector. Packet-level features are normally derived almost directly from the flow-based attributes; this includes packet length, interpacket timing velocity and acceleration, and protocol. 
 
-	\item Binary Classification: We formulate this anomaly detection problem as a classified binary classification task. A variety of classifiers, such as Support Vector Machines, K-Nearest-Neighbors, Random Forests, and Decision Trees, can be used at this step to output a final packet-level prediction.  
+	\item Binary Classification: We formulate this anomaly detection problem as a classified binary classification task. A variety of classifiers, such as Support Vector Machines, K-Nearest-Neighbors, Random Forests, and Decision Trees, can be used at this step to output a final packet-level prediction.
 \end{itemize}
 In our research, we experimentally generate normal and attack network traffic on a simulated consumer IoT device network. By applying our framework on the local router, we identify normal and attack traffic with an accuracy above 99\%; we found that random forest and K-Nearest-Neighbors classifiers were particularly effective. Another key advantage of our framework is that it is flow-based, stateless, and protocol-agnostic; therefore, it can be implemented on most types of LAN middleboxes (e.g. routers, network switches, firewalls).
 
 \section{Evaluation}
-Evaluation and testing of the project during the implementation stage was conducted using aRaspberry Pi v3. A small local network was set up to make it convenient to keep track of the devicesthat were connected to the network. During implementation, the code scanned a specific IP-range (172.24.1.0/24), which included the IP-address of the Pi. On the Raspberry Pi, it was possibleto change which ports were open and change the password of the device as desired, in order toreadily test the functionality of the code and make the debugging process easier. This allowed for acontrolled testing environment.
-\par
-Once the implementation was complete, the code ran successfully on the Raspberry Pi andmanaged to identify the devices on the specified IP range on the network. Furthermore, after findingwhich devices had a default username and password combination, the code successfully changed thepassword from the default one to a random twelve character string. Then, it returned informationabout the device (its IP-address, port number, default logon credentials, and the new password) tothe user. \textbf{(EXPLAIN HOW IT WORKED FOR YOUR GUYS' PART)}
+
+We created an isolated test environment where we could connect various medical IoT devices to a network and capture live traffic. We configured a Raspberry Pi 3 as a Wi-Fi access point (AP) and programmed it to record traffic to and from connected Wi-Fi stations (Figure~\ref{fig:data-collection}).  Creating an isolated test environment was necessary because it enabled us to easily separate traffic by device and filter out extraneous traffic on the network.   We chose six IoT devices to inspect:
+
+\begin{enumerate}
+  \item Nest Smart Camera
+  \item WeMo Smart Switch
+  \item Withings Wireless Blood Pressure Monitor
+  \item Withings Body Composition Wi-Fi Scale
+  \item 1byOne Digital Smart Wireless Body Fat Scale
+  \item iHealth Ease Wireless Blood Pressure Monitor
+\end{enumerate}
+
+\begin{figure}
+  \centering
+    \fbox{\includegraphics[scale=0.2]{network}}
+  \caption{Data collection environment and connection patterns between devices and infrastructure components.}
+  \label{fig:data-collection}
+\end{figure}
+
+\subsection{Password Detection}
+% Evaluation and testing of the project during the implementation stage was conducted using a Raspberry Pi v3. A small local network was set up to make it convenient to keep track of the devices that were connected to the network. During implementation, the code scanned a specific IP-range (172.24.1.0/24), which included the IP-address of the Pi. On the Raspberry Pi, it was possible to change which ports were open and change the password of the device as desired, in order to readily test the functionality of the code and make the debugging process easier. This allowed for a controlled testing environment.
+
+The IoT Network Monitor was successfully able to identify the devices on the specified IP range on the network. Furthermore, after finding which devices had a default username and password combination, the code successfully changed the password from the default one to a random twelve character string. Then, it returned information about the device (its IP-address, port number, default logon credentials, and the new password) to the user. 
+
+\subsection{Privacy Analysis}
+We found a very large variability in the methods each device used to send application data through the network when registering users, sending patches and updates, measuring vitals, or retrieving health analytics. All of the devices used encryption and protocols such as TLS or SSH to send sensitive first order information, such as the user's actual weight or blood sugar levels. However, there were various degrees of leaking second order information and metadata, scraped from sources such as HTTP GET requests, packet header information, and device conversation IP tables.
+
+\begin{figure}
+  \centering
+    \fbox{\includegraphics[scale=0.4]{bloodpacket}}
+  \caption{HTTP packet sent by IoT blood pressure monitor reveals nature of device and user behavior.}
+  \label{fig:bp-packet}
+\end{figure}
+
+Out of the devices that we studied, the Withings Blood Pressure Monitor exhibited the most number of vulnerabilities when it comes to revealing sensitive user information during data transmission. Figure 2 highlights the example of one packet alone, which revealed four sources of valuable information about the device. The plaintext string ``blood\textunderscore pressure'' appears twice, along with the string ``withings\textunderscore mobile\textunderscore app=ios\textunderscore healthmate''. Lastly, the ``current\textunderscore user'' field, while not directly disclosing the name of user, is potentially a unique identifier that associates that user with the subsequent blood pressure data. By monitoring this traffic for a period of time with many users, it would be trivial to match each packet of transmitted application data to the associated user. 
+
+\subsection{Anomaly Detection}
+
+ROHAN ADD YOUR PART HERE
 
 \section{Conclusions}
 Along with the quality of the framework, we put specific emphasis on the user-friendliness of the proposed IoT Network Inspector. As we envision regular homeowners adapting this product, many of which are not very tech-savvy, it was very important to us that the user-interface would be implemented in a straightforward and an intuitive way. To allow for a wide adoption of a product such as this one, it is vital that the product is easy to use and can provide homeowners a clear and a simple view of the security of their home network.

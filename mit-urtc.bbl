@@ -73,17 +73,6 @@
 \shownote{An optional note.}
 
 
-\bibitem[\protect\citeauthoryear{Krebs}{Krebs}{2016}]%
-        {krebs}
-\bibfield{author}{\bibinfo{person}{Brian Krebs}.}
-  \bibinfo{year}{2016}\natexlab{}.
-\newblock \bibinfo{title}{Who Makes the IoT Things Under Attack?}
-\newblock
-  \bibinfo{howpublished}{https://krebsonsecurity.com/2016/10/who-makes-the-iot-things-under-attack}.
-    (\bibinfo{year}{2016}).
-\newblock
-
-
 \bibitem[\protect\citeauthoryear{Srinivasan}{Srinivasan}{2008}]%
         {srinivasan2008fats}
 \bibfield{author}{\bibinfo{person}{Vijay et~al Srinivasan}.}

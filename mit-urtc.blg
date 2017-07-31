@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2015)
+This is BibTeX, Version 0.99d (TeX Live 2016)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: mit-urtc.aux
 The style file: ACM-Reference-Format.bst
@@ -20,45 +20,45 @@ Warning--page numbers missing in both pages and numpages fields in apthorpeIoT
 Warning--empty publisher in AnomalyDetectionSurvey
 Warning--empty address in AnomalyDetectionSurvey
 Warning--page numbers missing in both pages and numpages fields in AnomalyDetectionSurvey
-You've used 5 entries,
+You've used 4 entries,
             5706 wiz_defined-function locations,
-            1342 strings with 16071 characters,
-and the built_in function-call counts, 4611 in all, are:
-= -- 470
-> -- 122
+            1335 strings with 15913 characters,
+and the built_in function-call counts, 3921 in all, are:
+= -- 392
+> -- 102
 < -- 0
-+ -- 31
-- -- 49
-* -- 267
-:= -- 481
-add.period$ -- 24
-call.type$ -- 5
-change.case$ -- 26
-chr.to.int$ -- 5
-cite$ -- 11
-duplicate$ -- 448
-empty$ -- 325
-format.name$ -- 53
-if$ -- 1066
++ -- 27
+- -- 41
+* -- 227
+:= -- 399
+add.period$ -- 19
+call.type$ -- 4
+change.case$ -- 21
+chr.to.int$ -- 4
+cite$ -- 10
+duplicate$ -- 389
+empty$ -- 279
+format.name$ -- 45
+if$ -- 913
 int.to.chr$ -- 1
 int.to.str$ -- 0
 missing$ -- 20
-newline$ -- 78
-num.names$ -- 42
-pop$ -- 216
+newline$ -- 70
+num.names$ -- 34
+pop$ -- 192
 preamble$ -- 1
-purify$ -- 51
+purify$ -- 41
 quote$ -- 0
-skip$ -- 170
+skip$ -- 144
 stack$ -- 0
-substring$ -- 286
-swap$ -- 33
+substring$ -- 242
+swap$ -- 30
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 150
+type$ -- 120
 warning$ -- 6
-while$ -- 44
+while$ -- 36
 width$ -- 0
-write$ -- 130
+write$ -- 112
 (There were 2 error messages)

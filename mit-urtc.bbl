@@ -47,6 +47,17 @@
 \newblock
 
 
+\bibitem[\protect\citeauthoryear{Chandola and Kumar}{Chandola and
+  Kumar}{2009}]%
+        {AnomalyDetectionSurvey}
+\bibfield{author}{\bibinfo{person}{Varun Chandola} {and} \bibinfo{person}{Vipin
+  Kumar}.} \bibinfo{year}{2009}\natexlab{}.
+\newblock \showarticletitle{Anomaly detection: A Survey}. In
+  \bibinfo{booktitle}{{\em ACM computing surveys (CSUR)}},
+  Vol.~\bibinfo{volume}{41}.
+\newblock
+
+
 \bibitem[\protect\citeauthoryear{Copos}{Copos}{1993}]%
         {coposIoT}
 \bibfield{author}{\bibinfo{person}{Bogdan et~al Copos}.}

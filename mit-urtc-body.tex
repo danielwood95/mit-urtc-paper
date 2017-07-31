@@ -89,8 +89,8 @@ A packet's payload is presumed to be unencrypted if its Shannon entropy value is
 \end{itemize}
 
 \section{Anomaly Detection} 
-The third feature of IoT Network Monitor is a feature that detects anomalous behavior of any devices connected to the hub. Many IoT devices are fundamentally insecure, exposing the Internet to a variety of new attacks. In particular, IoT botnets, like the Mirai botnet, are leveraging these insecure IoT devices to conduct some of the strongest distributed denial of service (DDoS) attacks ever recorded. These type of IoT botnet attacks are growing in frequency and magnitude, restricting the ability of citizens to access the Internet freely and reliably.
-This has spurred interest in developing network mechanisms, particularly at the local level, for detecting attack traffic from compromised IoT devices. Despite the growing threat of IoT botnet attacks, little research has been done to adapt these techniques specifically to consumer IoT device networks. The key challenge lies in determining which features capture the unique statistical properties of IoT traffic and help differentiate it from anomalous IoT attack traffic. After all, IoT traffic has many unique behaviors which can be leveraged to enhance machine learning accuracy.
+The third feature of IoT Network Monitor is a feature that detects anomalous behavior of any devices connected to the hub. Many IoT devices are fundamentally insecure, exposing the Internet to a variety of new attacks.~\cite{apthorpeIoT} In particular, IoT botnets, like the Mirai botnet, are leveraging these insecure IoT devices to conduct some of the strongest distributed denial of service (DDoS) attacks ever recorded. These type of IoT botnet attacks are growing in frequency and magnitude, restricting the ability of citizens to access the Internet freely and reliably.
+This has spurred interest in developing network mechanisms, particularly at the local level, for detecting attack traffic from compromised IoT devices.~\cite{AnomalyDetectionSurvey} Despite the growing threat of IoT botnet attacks, little research has been done to adapt these techniques specifically to consumer IoT device networks. The key challenge lies in determining which features capture the unique statistical properties of IoT traffic and help differentiate it from anomalous IoT attack traffic. After all, IoT traffic has many unique behaviors which can be leveraged to enhance machine learning accuracy.
 
 We propose FITBOT (Find IoT Botnets), a novel packet-level machine learning anomaly detection framework for detecting botnet attack traffic in consumer Internet of Things (IoT) device networks. The key contributions in feature engineering leverage observations of IoT-specific device behaviors (e.g. limited number of endpoints, regular internal time intervals between packets, small size packet payloads for attacks, etc.).
 
@@ -100,11 +100,13 @@ The FITBOT framework proposes four key steps:
 
 	\item Split Packet By Device and Time-bin: In order to generate temporal features on a per-device basis, the packets must be split by their source IP address. This way, we can quantify and represent whether specific devices are behaving anomalously in a given time period. Using the timestamps of the packet capture, we split packets into continuous non-overlapping time-bins. The length of the time-bin may be modified to capture different types of temporal features. 
 
-	\item Generate Feature Vectors for Each Packet: We generate packet-level features and temporal features for each packet and concatenate all these features into a feature vector. Packet-level features are normally derived almost directly from the flow-based attributes; this includes packet length, interpacket timing velocity and acceleration, and protocol. 
+	\item Generate Feature Vectors for Each Packet: We generate packet-level features and temporal features for each packet and concatenate all these features into a feature vector. Packet-level features are normally derived almost directly from the flow-based attributes; this includes packet length, interpacket timing velocity and acceleration, and protocol. Temporal-based features include bandwidth and count of distinct destination IP addresses within a given time window.
 
 	\item Binary Classification: We formulate this anomaly detection problem as a classified binary classification task. A variety of classifiers, such as Support Vector Machines, K-Nearest-Neighbors, Random Forests, and Decision Trees, can be used at this step to output a final packet-level prediction.
+
+A key advantage of our framework is that it is flow-based, stateless, and protocol-agnostic; therefore, it can be implemented on most types of LAN middleboxes (e.g. routers, network switches, firewalls).
+
 \end{itemize}
-In our research, we experimentally generate normal and attack network traffic on a simulated consumer IoT device network. By applying our framework on the local router, we identify normal and attack traffic with an accuracy above 99\%; we found that random forest and K-Nearest-Neighbors classifiers were particularly effective. Another key advantage of our framework is that it is flow-based, stateless, and protocol-agnostic; therefore, it can be implemented on most types of LAN middleboxes (e.g. routers, network switches, firewalls).
 
 \section{Evaluation}
 
@@ -131,9 +133,11 @@ We created an isolated test environment where we could connect various medical I
 
 The IoT Network Monitor was successfully able to identify the devices on the specified IP range on the network. Furthermore, after finding which devices had a default username and password combination, the code successfully changed the password from the default one to a random twelve character string. It successfully did so, both for devices with an open Telnet port, as well as for devices with an open SSH port. Then, it returned information about the device (its IP-address, port number, default logon credentials, and the new password) to the user.
 \par
-The code returns a JSON object when a default username and password combination is detected on a device. An example of an output from a device with IP-address 172.24.1.1 and an open SSH portwith default username \textit{root} and default password \textit{password} that gets changed to the random string \textit{sTBM9JFbgXjU} is the following:
+The code returns a JSON object when a default username and password combination is detected on a device. An example of an output from a device with IP-address 172.24.1.1 and an open SSH port
+with default username \textit{root} and default password \textit{password} that gets changed to the random string \textit{sTBM9JFbgXjU} is the following:
 \par
-[{``172.24.1.1'': {``defaultUsr'': ``root'', ``newPass'': ``sTBM9JFbgXjU'', ``defaultPass'': ``password'',``port'': 22}}]
+[{``172.24.1.1'': {``defaultUsr'': ``root'', ``newPass'': ``sTBM9JFbgXjU'', ``defaultPass'': ``password'',
+``port'': 22}}]
 \par
 From this, we extract the new password (in this case \textit{sTBM9JFbgXjU}) and display it for the user on the dashboard of the IoT Network Monitor. Since the password has already been changed, the user does not need to worry about which port was insecure, or what the default username is. The value of the new password is sufficient to ensure the security of the device with regards to the default password problem.
 
@@ -151,7 +155,13 @@ Out of the devices that we studied, the Withings Blood Pressure Monitor exhibite
 
 \subsection{Anomaly Detection}
 
-ROHAN ADD YOUR PART HERE
+We experimentally generate normal and attack network traffic on a simulated consumer IoT device network. Over a ten minute window, we have our IoT devices toggle through its different network states for normal traffic. And, for attack traffic, each device periodically conducts each of the three most common classes of DoS attacks associated with Mirai-infected devices: TCP SYN Flood, a UDP Flood, and a HTTP GET Flood.
+
+By applying our framework on the local router, we identify normal and attack traffic with an accuracy above 99\%; we found that random forest and K-Nearest-Neighbors classifiers were particularly effective, outperforming decision trees and support vector machines. A feature importance analysis reveals that packet-level features greatly outperform temporal features. The differences in the distributions between normal and attack traffic were relatively more statistically pronounced, a difference which the ML algorithms were able to leverage to enhance classification performance. This is good news because the packet-level features are more lightweight in the first place since they are fully stateless and derived from network-flow attributes (e.g. 5-tuple and packet size). 
+
+Still, the temporal features help capture and leverage IoT-specific traffic behaviors that were responsible for a classification performance boost. All of the classifiers we examined experienced approximately a .02 boost in F1 score by leveraging these features. This demonstrates how applying IoT domain knowledge to feature engineering can enhance machine learning model performance. Thus, by adding features to represent per device send/receive rates and the change in number of endpoints, we were able to leverage IoT-specific behaviors to enhance our anomaly detection framework.
+
+Note that here is inherent overhead in generating temporal features since it requires splitting the network traffic into streams by device and allocating the per device streams into time-bins (the time-bins are meant to serve as a simple time-series representation of a network device’s evolving behavior). Also, these features require aggregating statistics over multiple packets in a time window; this implies a limited amount of state.
 
 \section{Conclusions}
 Along with the quality of the framework, we put specific emphasis on the user-friendliness of the proposed IoT Network Inspector. As we envision regular homeowners adapting this product, many of which are not very tech-savvy, it was very important to us that the user-interface would be implemented in a straightforward and an intuitive way. To allow for a wide adoption of a product such as this one, it is vital that the product is easy to use and can provide homeowners a clear and a simple view of the security of their home network.

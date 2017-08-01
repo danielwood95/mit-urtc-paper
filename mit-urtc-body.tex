@@ -38,12 +38,12 @@ One thing to note are the challenges associated with designing the user experien
      \label{fig:bp-image}
 \end{figure}
 
-\begin{figure}
-  \centering
-    \fbox{\includegraphics[scale=0.3]{alert}}
-     \caption{IoT Network Monitor alerts the user when it has discovered a vulnerability}
-     \label{fig:bp-image}
-\end{figure}
+%\begin{figure}
+ % \centering
+%    \fbox{\includegraphics[scale=0.3]{alert}}
+  %   \caption{IoT Network Monitor alerts the user when it has discovered a vulnerability}
+ %    \label{fig:bp-image}
+%\end{figure}
 
 \section{Password Inspection}
 The first feature of the IoT Network Monitor scans the home network for devices that have been shipped with a default username and password combination on an open port, either port 22 or port 23 (the SSH port or the Telnet port, respectively). This vulnerability of IoT devices is created when multiple devices are shipped with the same default logon credentials, enabling the construction of the mass password attacks such as the Mirai botnet. When devices with default passwords are detected on a home network, our tool changes the password of the open port to a randomly generated 12 character string and notifies the user of the new password on the user-interface.
@@ -95,7 +95,7 @@ A key advantage of our framework is that it is flow-based, stateless, and protoc
 
 \section{Evaluation}
 
-We created an isolated test environment where we could connect various medical IoT devices to a network and capture live traffic. We configured a Raspberry Pi 3 as a Wi-Fi access point (AP) and programmed it to record traffic to and from connected Wi-Fi stations (Figure~\ref{fig:data-collection}).  Creating an isolated test environment was necessary because it enabled us to easily separate traffic by device and filter out extraneous traffic on the network. We chose six IoT devices to inspect, including a Nest Smart Camera, WeMo Smart Switch, and Withings Wireless Blood Pressure Monitor.
+We created an isolated test environment where we could connect various medical IoT devices to a network and capture live traffic. We configured a Raspberry Pi 3 as a Wi-Fi access point (AP) and programmed it to record traffic to and from connected Wi-Fi stations.  Creating an isolated test environment was necessary because it enabled us to easily separate traffic by device and filter out extraneous traffic on the network. We chose six IoT devices to inspect, including a Nest Smart Camera, WeMo Smart Switch, and Withings Wireless Blood Pressure Monitor.
 
 %\begin{figure}
   %\centering
